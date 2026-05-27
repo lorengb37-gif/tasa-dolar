@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="3600">
+<title>Tasa USD — Banco Popular Dominicano</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #e2e8f0;
+  }
+  .dashboard {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .header {
+    border-bottom: 1px solid #334155;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  .badge {
+    display: inline-block;
+    background: #1d4ed8;
+    color: #dbeafe;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #f1f5f9;
+    letter-spacing: -0.3px;
+  }
+  .subtitle {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+  .card.compra { border-left: 3px solid #10b981; }
+  .card.venta  { border-left: 3px solid #ef4444; }
+  .card-label {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+  .card-value {
+    font-size: 38px;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -1px;
+  }
+  .card-currency {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .delta {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .spread {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .spread-label { font-size: 13px; color: #94a3b8; }
+  .spread-value { font-size: 16px; font-weight: 600; color: #fbbf24; }
+  .historial {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .historial h3 {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 8px 4px;
+    text-align: left;
+    border-bottom: 1px solid #1e293b;
+  }
+  th {
+    color: #64748b;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  td { color: #cbd5e1; }
+  tr:last-child td { border-bottom: none; }
+  tr:first-child td { color: #f8fafc; font-weight: 600; }
+  .footer {
+    border-top: 1px solid #334155;
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #64748b;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @media (max-width: 480px) {
+    .dashboard { padding: 24px; }
+    .grid { grid-template-columns: 1fr; }
+    .card-value { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <span class="badge">USD / DOP</span>
+      <h1>Banco Popular Dominicano</h1>
+      <p class="subtitle">Tasa de cambio del dólar estadounidense</p>
+    </div>
+
+    <div class="grid">
+      <div class="card compra">
+        <div class="card-label">Compra</div>
+        <div class="card-value">57.00<span class="card-currency">RD$</span></div>
+      </div>
+      <div class="card venta">
+        <div class="card-label">Venta</div>
+        <div class="card-value">60.00<span class="card-currency">RD$</span></div>
+      </div>
+    </div>
+
+    <div class="spread">
+      <span class="spread-label">Spread (diferencia)</span>
+      <span class="spread-value">RD$ 3.00</span>
+    </div>
+
+    <div class="historial">
+      <h3>Últimos 7 días</h3>
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Compra</th><th>Venta</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>27/05</td><td>57.00</td><td>60.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <span><span class="pulse"></span>Actualizado: 27/05/2026 · 6:16 PM</span>
+      <span>Fuente: tasareal.com</span>
+    </div>
+  </div>
+</body>
+</html>
