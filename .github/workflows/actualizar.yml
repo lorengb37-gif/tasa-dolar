@@ -1,0 +1,47 @@
+name: Actualizar Tasa USD Banco Popular
+
+on:
+  # Cron en UTC. Las 7:00 AM en República Dominicana (UTC-4) = 11:00 UTC.
+  # Nota: GitHub Actions a veces se retrasa unos minutos en horarios pico;
+  # esto es normal y no afecta el funcionamiento.
+  schedule:
+    - cron: '0 11 * * *'
+
+  # Permite ejecutarlo manualmente desde la pestaña Actions en GitHub
+  workflow_dispatch:
+
+permissions:
+  contents: write   # Necesario para hacer commit del HTML actualizado
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Ejecutar el script de extracción
+        run: python actualizar.py
+
+      - name: Hacer commit y push si hubo cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html historial.json
+          # Si no hay cambios, no hace nada (no falla)
+          if git diff --staged --quiet; then
+            echo "Sin cambios en la tasa, no se hace commit."
+          else
+            git commit -m "Actualización tasa USD - $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
